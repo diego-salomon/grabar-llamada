@@ -1,5 +1,5 @@
 // Grabar Llamada: doble clic, graba la llamada, y al detenerla deja la
-// transcripción completa en ~/Documents/Personal/Llamadas.
+// transcripción completa en ~/Documents/Llamadas.
 
 import AppKit
 import SwiftUI

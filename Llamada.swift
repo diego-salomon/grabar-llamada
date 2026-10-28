@@ -7,9 +7,9 @@ import UserNotifications
 
 enum Carpeta {
     static let home = FileManager.default.homeDirectoryForCurrentUser
-    static let audio = home.appendingPathComponent("Documents/Personal/Diario/Audio")
-    static let transcripciones = home.appendingPathComponent("Documents/Personal/Diario/Transcripciones")
-    static let llamadas = home.appendingPathComponent("Documents/Personal/Llamadas")
+    static let audio = home.appendingPathComponent("Documents/Diario/Audio")
+    static let transcripciones = home.appendingPathComponent("Documents/Diario/Transcripciones")
+    static let llamadas = home.appendingPathComponent("Documents/Llamadas")
     /// Fuera de iCloud, para no subir un archivo que cambia cada segundo.
     static let trabajo = home.appendingPathComponent("Library/Application Support/Grabar Llamada")
 }
@@ -90,7 +90,7 @@ struct Llamada {
         registrar("Audio guardado: \(audio.path) (\(volumenes.count) pista(s))")
     }
 
-    /// Espera el .txt que deja el transcriptor (~/Diario-transcriptor). Suele tardar
+    /// Espera el .txt que deja el transcriptor (diario-local). Suele tardar
     /// un 10 % de lo que dura la llamada; esperamos lo mismo que duró (mínimo 10 min).
     func esperarTranscripcion(duracionLlamada: Int,
                               progreso: @MainActor (Int) -> Void) async throws -> String {

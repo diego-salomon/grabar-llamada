@@ -16,7 +16,7 @@ swift herramientas/icono.swift icono.svg "$TEMP/AppIcon.iconset"
 iconutil -c icns "$TEMP/AppIcon.iconset" -o "$APP/Contents/Resources/AppIcon.icns"
 
 cp Info.plist "$APP/Contents/Info.plist"
-codesign --force --sign - --identifier com.diego.grabarllamada "$APP"
+codesign --force --sign - --identifier local.grabarllamada "$APP"
 rm -rf "/Applications/Grabar Llamada.app"
 mv "$APP" /Applications/
 echo "Instalada en /Applications/Grabar Llamada.app"
