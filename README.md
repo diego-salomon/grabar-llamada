@@ -1,22 +1,27 @@
 # Grabar Llamada
 
-A native macOS app I wrote in Swift. Double-click it and it starts recording the call. When you stop it, a full transcript lands in your notes folder.
+A Mac app for recording calls. Double-click it and it starts recording. Stop it, and a few minutes later the full transcript is in your notes folder.
 
-I wanted a record of what gets agreed on every call, with zero setup while it happens. It works with a phone on speaker as well as with a WhatsApp Desktop or Continuity call on the Mac.
+I wanted a record of what gets agreed on calls without having to set anything up while the call is happening. It works with the phone on speaker next to the Mac, and with calls on the computer itself (WhatsApp Desktop, or a Continuity call with headphones).
 
 ## How it works
 
-- **Two independent sources.** It records the microphone (a phone on speaker next to the Mac) and the Mac's own audio (WhatsApp Desktop, or Continuity calls with headphones) into separate `.caf` files. If one fails, the other keeps going.
-- **Crash-safe.** The files are written as it records, so they stay readable if the app dies. On the next launch it finds any interrupted recording and finishes it.
-- **Mixes, aligns and levels** the sources when you stop, and saves an `.m4a`.
-- **Transcribes locally.** It hands the audio to my [local diary transcriber](https://github.com/diego-salomon/diario-local), which runs Whisper large-v3-turbo on Apple Silicon. Nothing goes to the cloud.
-- **Notifies you** when the transcript is ready. Tapping the notification opens it.
-- `herramientas/retranscribir.py` rescues a call when Whisper gets stuck in a loop (it sometimes repeats "Gracias." and skips whole minutes), by running it again without previous-text conditioning.
+It records two sources into separate files: the microphone, and the Mac's own audio. If one fails, the other keeps going. The files are written as it records, so if the app crashes nothing is lost, and the next launch finishes the interrupted recording.
 
-## Build
+When you stop, it lines the two sources up, levels them, mixes them into one `.m4a` and drops it in the folder my [diario-local](https://github.com/diego-salomon/diario-local) transcriber watches. Whisper transcribes it on the Mac, and the app sends you a notification when the text is ready. Tap it to open the transcript.
+
+Whisper sometimes gets stuck repeating "Gracias." and skips whole minutes. `herramientas/retranscribir.py` runs the call again without feeding Whisper the previous text, which is what causes those loops.
+
+## Run it
+
+You need macOS 15 on Apple Silicon, the Xcode command line tools (`xcode-select --install`), and [diario-local](https://github.com/diego-salomon/diario-local) running for the transcription.
 
 ```bash
-./build.sh   # compiles with swiftc, generates the icon from icono.svg, signs ad hoc, installs to /Applications
+./build.sh   # compiles, makes the icon, signs it locally and installs it in /Applications
 ```
 
-Requires macOS 15 on Apple Silicon. The code comments are in Spanish.
+The first time, macOS asks for permission to use the microphone, the system audio and Documents. Every rebuild changes the local signature, so you'll be asked again.
+
+The folders are set in `Llamada.swift` (`Documents/Personal/Diario/Audio` for the audio, `Documents/Personal/Llamadas` for the transcripts). Change them there if yours are different.
+
+The code comments are in Spanish.
