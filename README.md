@@ -13,7 +13,7 @@
 
 <br>
 
-<img src="docs/assets/flow.png" width="900" alt="The microphone and the Mac's own audio are recorded as two separate files, then aligned, leveled and mixed into one .m4a, transcribed locally by diario-local, and saved to ~/Documents/Llamadas with a notification." />
+<img src="docs/assets/window.png" width="340" alt="The recording window: a timer, a live level meter for the microphone and one for the Mac's audio, and a red stop button." />
 
 </div>
 
@@ -24,6 +24,10 @@ The text lands in `~/Documents/Llamadas`.
 It records the microphone (phone on speaker next to the Mac) and the Mac's own audio (WhatsApp Desktop, Continuity calls) as two separate files. If one source fails, the other keeps going, and a crash loses nothing: the next launch finishes the recording. On stop it aligns, levels and mixes both into one `.m4a`, hands it to [diario-local](https://github.com/diego-salomon/diario-local) for a local Whisper transcript, and notifies you when it's ready.
 
 If Whisper gets stuck repeating a phrase and skips minutes, `herramientas/retranscribir.py` runs the call again without that context.
+
+## How it works
+
+<img src="docs/assets/flow.png" width="860" alt="The microphone and the Mac's own audio are recorded as two separate files, then aligned, leveled and mixed into one .m4a, transcribed locally by diario-local, and saved to ~/Documents/Llamadas with a notification." />
 
 ## Run it
 
